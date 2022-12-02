@@ -1,20 +1,52 @@
 # web_scraper.py
+'''
+Link for documentation on Selenium and locating via XPath: https://selenium-python.readthedocs.io/locating-elements.html#locating-by-xpath
+'''
 
-import requests
-from bs4 import BeautifulSoup as BS
-from lxml import etree
+import os
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import csv
+import prettytable
 
-i = 1
 
-BASE_URL = "https://www.myntra.com/shoes?p={pg_no}".format(pg_no=i)
-header_param = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
-# The above parameter(s) was necessary because I had to pretend to be a real user, in order to access the site.
+driver = webdriver.Chrome(os.getcwd() + 'chromedriver')
 
-source = requests.get(BASE_URL, headers = header_param).text
-soup = BS(source, "lxml")
+BASE_URL = "https://www.myntra.com/shoes?p="
 
-tree = etree.fromstring(soup.prettify()) 
-tree.xpath('.//div[@class="product-productMetaInfo"]/text()')
-[' test\n                 ']
+for i in range(1, 5):
+    print ("Currently on page: ", i)
+    driver.get(BASE_URL + str(i))
+    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)") 
+    # Because Myntra's page is dynamic, this ensures that all entries load by scrolling down to the bottom
+
+    resultset = driver.find_elements(By.CLASS_NAME, "product-base")
+    skip_count = 0
+    sneaker_params = {}
+
+    for shoe in resultset:
+        try:
+            split_data = shoe.text.split('\n')
+            rating = split_data[0]
+            shoe_name = split_data[3] + " - " + split_data[4]
+        except:
+            skip_count = skip_count + 1
+            continue
+
+        if "sneaker" in shoe_name.lower():    
+            sneaker_params[shoe_name] = rating
+    
+    print ("Skipped ", skip_count, " entries due to missing information.")
+
+print (sneaker_params)
+
+# There is no true "category" of shoes within the pages itself, so we use a default category of "sneakers".
+
+driver.close()
+
+
+
+
+
 
 
