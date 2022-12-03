@@ -47,11 +47,10 @@ column_1 = ["Sneaker_Name"] + list(sneaker_params.keys())
 column_2 = ["Category", "Sneakers"]
 column_3 = ["User_Rating (/5)"] + list(sneaker_params.values())
 
-temp_row = []
 summary_table = PrettyTable(["Sneaker_Name", "Category", "User_Rating (/5)"])
 
 for y in range(0, len(column_1), 1):
-
+    temp_row = []
     temp_row.append(column_1[y])
     if y == 0:
         temp_row.append(column_2[0])
@@ -62,7 +61,6 @@ for y in range(0, len(column_1), 1):
     writer_object.writerow(temp_row)
     if y > 0:
         summary_table.add_row(temp_row)
-    temp_row = []
     
 
 print ("\nThe file has been succesfully created in", os.getcwd(), "\b. A summary of the contents of the file is as shown below:\n", summary_table)
