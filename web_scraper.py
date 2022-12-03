@@ -1,7 +1,7 @@
 # web_scraper.py
 
 '''
-Link for documentation on Selenium and locating via XPath: https://selenium-python.readthedocs.io/locating-elements.html#locating-by-xpath
+Link for documentation on Selenium: https://selenium-python.readthedocs.io/locating-elements.html
 '''
 
 import os
