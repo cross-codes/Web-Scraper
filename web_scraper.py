@@ -40,7 +40,7 @@ for x in range(1, 5):
     print ("Skipped", skip_count, "entries due to missing information.")
 
 # There is no true "category" of shoes within the pages itself, so we use a default category of "sneakers".
-file = open("sneakers.csv", "w")  # Note: "sneakers.csv" will be made in the current directory
+file = open("sneakers.csv", "w", newline="")  # Note: "sneakers.csv" will be made in the current directory
 writer_object = csv.writer(file)
 
 column_1 = ["Sneaker_Name"] + list(sneaker_params.keys())
