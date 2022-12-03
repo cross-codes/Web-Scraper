@@ -69,10 +69,3 @@ file.flush()
 file.close()
 
 driver.close()
-
-
-
-
-
-
-
