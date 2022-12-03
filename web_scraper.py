@@ -69,6 +69,7 @@ print ("\nThe file has been succesfully created in", os.getcwd(), "\b. A summary
 
 file.flush()
 file.close()
+
 driver.close()
 
 
