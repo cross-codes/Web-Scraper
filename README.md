@@ -3,7 +3,7 @@
 
 A python program that scrapes "https://www.myntra.com/" to obtain information on some sneakers from it, using Selenium and ChromeDriver.
 
-Current version v1.0
+Current version : 1.0
 </div>
 
 ---
